@@ -2,27 +2,132 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Mock Course Registration</title>
+        <title>UNH Course Registration Redesign</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
 
-        <h1>Course Registration</h1>
-        <div id="error"></div>
+        <!--
+        classes:
+            area -- class is for areas such as the serach area or enrollments area
+            area-heading -- for heading within areas
+            search-input -- group containing a search input
+            creative-button -- buttons that add to the UI or create results
+            destructive-button -- buttons that remove from the UI or remove results
+            course-list -- div to contain a list of courses
+            sidebar-icon -- image in a sidebar
+            sidebar-icon-label -- sidebar icon label
+        -->
+        
+        <!--title area-->
+        <!-- https://www.w3schools.com/html/html5_semantic_elements.asp -->
+        <header id="title-area">
+            <h1>Course Registration</h1>
+        </header>
+        
+        <!--sidebar-->
+        <nav id="sidebar">
+            <!--TODO: long run remove height/width from HTML and move to CSS -->
+            <!--unh logo icon-->
+            <img class="sidebar-icon" id="logo-icon" src="images/unh_logo.png" alt="" width="50" height="50">
+            <label class="sidebar-icon-label" for="logo-icon">TODO:Move htxw to CSS</label>
+            
+            <!--register icon-->
+            <img class="sidebar-icon" id="register-icon" src="images/pencil.png" alt="image of a pencil" width="50" height="50">
+            <label class="sidebar-icon-label" for="register-icon">Register</label>
+            
+            <!--plan icon-->
+            <img class="sidebar-icon" id="plan-icon" src="images/light.png" alt="image of a lightbulb" width="50" height="50">
+            <label class="sidebar-icon-label" for="plan-icon">Plan</label>
+            
+            <!--schedule icon-->
+            <img class="sidebar-icon" id="schedule-icon" src="images/calendar.png" alt="image of a paper monthly calendar" width="50" height="50">
+            <label class="sidebar-icon-label" for="schedule-icon">Schedule</label>
+            
+            <!--FAQ icon-->
+            <img class="sidebar-icon" id="faq-icon" src="images/question.png" alt="image of a question mark" width="50" height="50">
+            <label class="sidebar-icon-label" for="faq-icon">Frequently Asked Questions</label>
+            
+        </nav>
+        
+        <!--main area-->
+        <main id="main-area">
+            
+            <!--search area-->
+            <section class="area" id="search-area">
+                
+                <h2 class="area-heading" id="search-area-heading">Search for Courses</h2>
+                
+                <!-- https://www.w3schools.com/html/html_form_input_types.asp -->
+                <!-- https://www.w3schools.com/tags/tag_textarea.asp -->
+                
+                <!--search by course title-->
+                <div class="search_input" id="title-search">
+                    <label id="title-search-label" for="title-search-input">Enter a Course Title:</label>
+                    <input id="title-search-input" type="search">
+                </div>
+                
+                <!--search by crn-->
+                <div class="search_input" id="crn-search">
+                    <label id="crn-search-label" for="crn-search-input">Enter a Course Registration Number (CRN):</label>
+                    <input id="crn-search-input" type="search">
+                </div>
+                
+                <!--search by wishlist-->
+                <div class="search_input" id="wishlist-search">
+                    <label id="wishlist-search-label" for="wishlist-search-input">Select a Course Wishlist:</label>
+                    <!-- https://www.geeksforgeeks.org/html/html-dropdown/ -->
+                    <select id="wishlist-search-select">
+                        <!--TODO: Options should be populated by JavaScript based on what is in the API-->
+                        <option value="default">No Wishlist Selected</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+                
+                <!--complete search (button)-->
+                <!-- https://www.w3schools.com/tags/tag_button.asp -->
+                <button class="creative-button" id="search-button" type="button">Search</button>
+                
+                
+            </section>
+            
+            <!--results area-->
+            <section class="area" id="results-area">
+                
+                <h2 class="area-heading" id="results-area-heading">Search Results:</h2>
+                    
+                <!--search results list-->
+                <div class="course-list" id="results-course-list">
+                    <!--TODO: inputs and labels should be populated by JavaScript based on what is returned from the search-->
+                    <input id="result1" type="checkbox">
+                    <label class="course-item" for="result1">TODO: COURSE INFO -  JavaScript will take over this later</label>
+                    <!--TODO: the above ^^ will need to be removed longrun becuase JavaScript will takeover-->
+                </div>
+                
+                <!--register button-->
+                <button class="creative-button" id="register-button" type="button">Register</button>
+                
+            </section>
+            
+            <!--enrollments area-->
+            <section class="area" id="enrollments-area">
+                
+                <h2 class="area-heading" id="enrollments-area-heading">Registered For:</h2>
+                
+                <!--enrollments list-->
+                <div class="course-list" id="enrollments-course-list">
+                    <!--TODO: inputs and labels should be populated by JavaScript based on what is returned from the search-->
+                    <label class="course-item" for="enrollment1">TODO: COURSE INFO -  JavaScript will take over this later</label>
+                    <!-- https://www.w3schools.com/tags/att_input_type_button.asp -->
+                    <input class="destructive-button" id="enrollment1" type="button" value="Drop">
+                    <!--TODO: the above ^^ will need to be removed longrun becuase JavaScript will takeover-->
+                </div>
+                
+            </section>
+            
+        </main>
 
-        <div class="layout">
-        <div class="col">
-            <h2>Available Sections</h2>
-            <div id="sections"></div>
-        </div>
-        <div class="col">
-            <h2>My Schedule</h2>
-            <div id="schedule"></div>
-            <h2>Announcements</h2>
-            <div id="announcements"></div>
-        </div>
-        </div>
-
-        <script src="script.js"></script>
+        <!-- commented out for now since javascript starter does some interesting stuff -->
+        <!--<script src="script.js"></script>-->
     </body>
 </html>
