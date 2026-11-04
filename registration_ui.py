@@ -262,13 +262,17 @@ def render_search_results():
         instructor = str(result['instructor'])
         #TODO:Add selectable radio buttons
         #ui.notify(f"{department}{course_num} {title} Section: {section_num} Taught by: {instructor}")
-        with ui.row().classes("w-full items-center no-wrap bg-gray-100 rounded") as row:
+        with ui.row().classes("w-full items-center no-wrap bg-gray-200 rounded") as row:
             #checkbox = ui.checkbox()
             checkbox = ui.checkbox(on_change=toggle_register_button)
+#            with ui.row().classes("w-full items-center no-wrap rounded flex-grow") as result:
+#                course_label = ui.label(f"{department}{course_num}.{section_num}").classes("bg-blue-100 rounded flex-grow")
+#                title_label = ui.label(f"\"{title}\"").classes(" bg-gray-100 rounded flex-grow")
+#                teacher_label = ui.label(f"Taught by: Prof. {instructor}").classes("bg-blue-100 rounded flex-grow")
             label = ui.label(
-                f"{department}{course_num} {title} Section: {section_num} Taught by: {instructor}"
+                f"{department}{course_num} • \"{title}\" • Section: {section_num} • Taught by: Prof. {instructor}"
             ).classes("flex-grow") #fill available space
-        options.append((result, checkbox, label))
+        options.append((result, checkbox))
         
     #check since i declared it as none uptop
     if register_button is not None:
