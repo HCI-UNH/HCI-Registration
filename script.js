@@ -1,5 +1,6 @@
 const API_BASE = "http://localhost:8005";
 let selectedWishlistCourses = [];
+let currentCourses = [];
 
 async function apiGet(path) {
   try {
@@ -44,35 +45,53 @@ async function searchBtnOnClick(){
   //debug
   console.log("Search button was clicked")
 
-  //container to fill with list of elements
-  const container = document.getElementById("resultsFromSearch");
-  //api call to get sections currently available
-  const sections = await apiGet("/sections");
 
-  //idk what this does its in the starter code tho
-  container.replaceChildren();
+  const titleInput = document.getElementById("title-search-input").value.trim().toLowerCase();
+  const crnInput = document.getElementById("crn-search-input").value.trim();
 
-  //for each section in the list of dictionaries we create a div and a span element
+  const filteredCourses = currentCourses.filter((course) => {
+    const matchesTitle = 
+      !titleInput || 
+      course.title.toLowerCase().includes(titleInput) ||
+      course.department.toLowerCase().includes(titleInput);
+    
+    const matchesCRN = 
+      !crnInput ||
+      String(course.crn).includes(crnInput);
+
+    return matchesTitle && matchesCRN;
+  });
+
+  renderSearchResults(filteredCourses);
+  // //container to fill with list of elements
+  // const container = document.getElementById("resultsFromSearch");
+  // //api call to get sections currently available
+  // const sections = await apiGet("/sections");
+
+  // //idk what this does its in the starter code tho
+  // container.replaceChildren();
+
+  // //for each section in the list of dictionaries we create a div and a span element
   
-  for (const s of sections) {
-    const row = el("div");
-    row.className = "row";
-    //display each section based on there attributes
-    row.appendChild(el("span",
-      `${s.department} - ${s.title} - ${s.instructor} - ${s.meets} - ${s.seats_open}/${s.capacity} seats open`))
-    if (s.you_enrolled) {
-      const btn = el("button", "Drop");
-      btn.onclick = () => dropSection(s.id);
-      row.appendChild(btn);
-    } else {
-      const btn = el("button", "Register");
-      btn.onclick = () => registerSection(s.id);
-      row.appendChild(btn);
-    }
-    container.appendChild(row);
+  // for (const s of sections) {
+  //   const row = el("div");
+  //   row.className = "row";
+  //   //display each section based on there attributes
+  //   row.appendChild(el("span",
+  //     `${s.department} - ${s.title} - ${s.instructor} - ${s.meets} - ${s.seats_open}/${s.capacity} seats open`))
+  //   if (s.you_enrolled) {
+  //     const btn = el("button", "Drop");
+  //     btn.onclick = () => dropSection(s.id);
+  //     row.appendChild(btn);
+  //   } else {
+  //     const btn = el("button", "Register");
+  //     btn.onclick = () => registerSection(s.id);
+  //     row.appendChild(btn);
+  //   }
+  //   container.appendChild(row);
 
-  }
 }
+
 
 
 
@@ -153,12 +172,22 @@ function renderSearchResults(courses) {
     row.className = "row";
 
     //Display course information
-    const courseInfo = el(
+    row.appendChild(el(
       "span",
       `${s.department} ${s.course_num}.${s.section_num} - ${s.title} - ${s.instructor}`
-    );
+    ));
 
-    row.appendChild(courseInfo);
+    if (s.you_enrolled) {
+      const btn = el("button", "Drop");
+      btn.onclick = () => dropSection(s.id);
+      row.appendChild(btn);
+    } else {
+      const btn = el("button", "Register");
+      btn.onclick = () => registerSection(s.id);
+      row.appendChild(btn);
+    }
+
+    container.appendChild(row);
   }
 }
 
@@ -181,20 +210,23 @@ async function loadWishLists() {
 
     select.appendChild(opt);
   }
-  console.log(wishlists)
+  // console.log(wishlists)
+
+  currentCourses = await apiGet("/sections");
 
   select.addEventListener("change", async (event) => {
     const wishlistID = event.target.value;
 
     if (wishlistID === "default") {
-      selectedWishlistCourses = [];
+      currentCourses = await apiGet("/sections");
       return;
+    } else {
+      currentCourses = await apiGet(`/wishlist/${wishlistID}`);
     }
 
-    selectedWishlistCourses = await apiGet(`/wishlist/${wishlistID}`);
-    console.log(selectedWishlistCourses)
+    console.log(currentCourses)
 
-    renderSearchResults(selectedWishlistCourses);
+    renderSearchResults(currentCourses);
   });
 }
 
