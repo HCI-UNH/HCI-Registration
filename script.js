@@ -11,6 +11,7 @@ async function apiGet(path) {
   }
 }
 
+
 async function apiPost(path, body) {
   try {
     const resp = await fetch(API_BASE + path, {
@@ -35,7 +36,7 @@ async function apiPost(path, body) {
 //Create event listeners for search button
 const searchBtn = document.getElementById("search-button");
 searchBtn.addEventListener("click", searchBtnOnClick)
-searchBtn.addEventListener("hover", searchBtnOnHover)
+//searchBtn.addEventListener("hover", searchBtnOnHover)
 
 //Search button onclick
 async function searchBtnOnClick(){
@@ -72,23 +73,23 @@ async function searchBtnOnClick(){
   }
 }
 
-function searchBtnOnHover(){
-  searchBtn.textContent = "Hovering"
-}
 
 
 function showError(msg) { document.getElementById("error").textContent = msg; }
 function clearError() { document.getElementById("error").textContent = ""; }
 
 async function registerSection(sectionId) {
-  if (await apiPost("/register", { section_id: sectionId })) {
-    renderAll();
+  //console.log(sectionId)
+  if (await apiPost("/register", [Number(sectionId)])) {
+    renderAll()
+    searchBtnOnClick();
   }
 }
 
 async function dropSection(sectionId) {
-  if (await apiPost("/drop", { section_id: sectionId })) {
-    renderAll();
+  if (await apiPost("/drop", [Number(sectionId)])) {
+    renderAll()
+    searchBtnOnClick();
   }
 }
 
@@ -98,29 +99,29 @@ function el(tag, text) {
   return node;
 }
 
-async function renderSections() {
-  const container = document.getElementById("sections");
-  const sections = await apiGet("/sections");
-  container.replaceChildren();
+// async function renderSections() {
+//   const container = document.getElementById("sections");
+//   const sections = await apiGet("/sections");
+//   container.replaceChildren();
 
-  for (const s of sections) {
-    const row = el("div");
-    row.className = "row";
-    row.appendChild(el("span",
-      `${s.code} - ${s.title} - ${s.instructor} - ${s.meets} - ${s.seats_open}/${s.capacity} seats open`));
+//   for (const s of sections) {
+//     const row = el("div");
+//     row.className = "row";
+//     row.appendChild(el("span",
+//       `${s.code} - ${s.title} - ${s.instructor} - ${s.meets} - ${s.seats_open}/${s.capacity} seats open`));
 
-    if (s.you_enrolled) {
-      const btn = el("button", "Drop");
-      btn.onclick = () => dropSection(s.id);
-      row.appendChild(btn);
-    } else {
-      const btn = el("button", "Register");
-      btn.onclick = () => registerSection(s.id);
-      row.appendChild(btn);
-    }
-    container.appendChild(row);
-  }
-}
+//     if (s.you_enrolled) {
+//       const btn = el("button", "Drop");
+//       btn.onclick = () => dropSection(s.id);
+//       row.appendChild(btn);
+//     } else {
+//       const btn = el("button", "Register");
+//       btn.onclick = () => registerSection(s.id);
+//       row.appendChild(btn);
+//     }
+//     container.appendChild(row);
+//   }
+// }
 
 async function renderCurEnrollments() {
   const container = document.getElementById("cur-enrolls");
@@ -149,9 +150,9 @@ async function renderCurEnrollments() {
 // }
 
 function renderAll() {
-  renderSections();
+ // renderSections();
   renderCurEnrollments();
 }
 
 renderAll();
-renderAnnouncements();
+//renderAnnouncements();

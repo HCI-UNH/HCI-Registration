@@ -154,7 +154,7 @@ def register(section_id: list[int] = Body(...)):
     _reindex_enrollments()
     return new_enrollments
 
-@app.delete("/drop")
+@app.post("/drop")
 def drop(section_id: list[int] = Body(...)):
     dropped_sections = []
     for sid in section_id:
