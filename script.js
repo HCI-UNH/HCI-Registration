@@ -1,4 +1,5 @@
 const API_BASE = "http://localhost:8005";
+let selectedWishlistCourses = [];
 
 async function apiGet(path) {
   try {
@@ -137,6 +138,98 @@ async function renderCurEnrollments() {
   }
 }
 
+function renderSearchResults(courses) {
+  const container = document.getElementById("results-course-list");
+  // Clear previous results
+  container.replaceChildren();
+
+  if (!courses || course.length === 0) {
+    container.appendChild(el("p", "No courses found."));
+    return;
+  }
+
+  for (const s of courses) {
+    const row = el("div");
+    row.className = "row";
+
+    //Display course information
+    const courseInfo = el(
+      "span",
+      `${s.department} ${s.course_num}.${s.section_num} - ${s.title} - ${s.instructor}`
+    );
+
+    row.appendChild(courseInfo);
+  }
+}
+
+async function getWishLists() {
+  const wishlists = await apiGet("/wishlists");
+  return wishlists
+}
+// get wish list from API and render it
+async function loadWishLists() {
+  const select = document.getElementById("wishlist-search-select");
+  const wishlists = await getWishLists();
+
+  select.innerHTML = '<option value="default">No Wishlist Selected</option>';
+  
+  for (const w of wishlists) {
+    const opt = document.createElement("option");
+
+    opt.value = w.wishlist_id;
+    opt.textContent = w.wishlist_name || `Wishlist ${w.wishlist_id}`;
+
+    select.appendChild(opt);
+  }
+  console.log(wishlists)
+
+  select.addEventListener("change", async (event) => {
+    const wishlistID = event.target.value;
+
+    if (wishlistID === "default") {
+      selectedWishlistCourses = [];
+      return;
+    }
+
+    selectedWishlistCourses = await apiGet(`/wishlist/${wishlistID}`);
+    console.log(selectedWishlistCourses)
+
+    renderSearchResults(selectedWishlistCourses);
+  });
+}
+
+function renderSearchResults(courses) {
+  const container = document.getElementById("results-course-list");
+
+  container.replaceChildren();
+
+  if(!courses || courses.length === 0) {
+    container.appendChild(el("p", "No courses found."));
+    return;
+  }
+
+  for (const course of courses) {
+    const row = el("div");
+    row.className = "row";
+
+    row.appendChild(el(
+      "span",
+      `${course.department} ${course.course_num}.${course.section_num} - ${course.title} - ${course.instructor}`
+    ));
+
+    if (course.you_enrolled) {
+      const btn = el("button", "Drop");
+      btn.onclick = () => dropSection(course.id);
+      row.appendChild(btn);
+    } else {
+      const btn = el("button", "Register");
+      btn.onclick = () => registerSection(course.id);
+      row.appendChild(btn);
+    }
+
+    container.appendChild(row);
+  }
+}
 // async function renderAnnouncements() {
 //   const container = document.getElementById("announcements");
 //   const announcements = await apiGet("/announcements");
@@ -152,7 +245,7 @@ async function renderCurEnrollments() {
 function renderAll() {
  // renderSections();
   renderCurEnrollments();
+  loadWishLists();
 }
 
 renderAll();
-//renderAnnouncements();
