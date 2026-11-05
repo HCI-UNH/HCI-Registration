@@ -32,6 +32,51 @@ async function apiPost(path, body) {
   }
 }
 
+//Create event listeners for search button
+const searchBtn = document.getElementById("search-button");
+searchBtn.addEventListener("click", searchBtnOnClick)
+searchBtn.addEventListener("hover", searchBtnOnHover)
+
+//Search button onclick
+async function searchBtnOnClick(){
+  //debug
+  console.log("Search button was clicked")
+
+  //container to fill with list of elements
+  const container = document.getElementById("resultsFromSearch");
+  //api call to get sections currently available
+  const sections = await apiGet("/sections");
+
+  //idk what this does its in the starter code tho
+  container.replaceChildren();
+
+  //for each section in the list of dictionaries we create a div and a span element
+  
+  for (const s of sections) {
+    const row = el("div");
+    row.className = "row";
+    //display each section based on there attributes
+    row.appendChild(el("span",
+      `${s.department} - ${s.title} - ${s.instructor} - ${s.meets} - ${s.seats_open}/${s.capacity} seats open`))
+    if (s.you_enrolled) {
+      const btn = el("button", "Drop");
+      btn.onclick = () => dropSection(s.id);
+      row.appendChild(btn);
+    } else {
+      const btn = el("button", "Register");
+      btn.onclick = () => registerSection(s.id);
+      row.appendChild(btn);
+    }
+    container.appendChild(row);
+
+  }
+}
+
+function searchBtnOnHover(){
+  searchBtn.textContent = "Hovering"
+}
+
+
 function showError(msg) { document.getElementById("error").textContent = msg; }
 function clearError() { document.getElementById("error").textContent = ""; }
 
@@ -77,35 +122,35 @@ async function renderSections() {
   }
 }
 
-async function renderSchedule() {
-  const container = document.getElementById("schedule");
-  const schedule = await apiGet("/my-schedule");
+async function renderCurEnrollments() {
+  const container = document.getElementById("cur-enrolls");
+  const enrolled = await apiGet("/enrollments");
   container.replaceChildren();
 
-  if (!schedule.length) {
+  if (!enrolled.length) {
     container.appendChild(el("div", "You aren't registered for anything yet."));
     return;
   }
-  for (const s of schedule) {
-    container.appendChild(el("div", `${s.code} - ${s.title} - ${s.meets}`));
+  for (const s of enrolled) {
+    container.appendChild(el("div", `${s.course.department} - ${s.course.title} - ${s.course.instructor} - ${s.course.meets} - ${s.course.seats_open}/${s.course.capacity} seats open`));
   }
 }
 
-async function renderAnnouncements() {
-  const container = document.getElementById("announcements");
-  const announcements = await apiGet("/announcements");
-  container.replaceChildren();
+// async function renderAnnouncements() {
+//   const container = document.getElementById("announcements");
+//   const announcements = await apiGet("/announcements");
+//   container.replaceChildren();
 
-  for (const a of announcements) {
-    container.appendChild(el("div", a.title));
-    container.appendChild(el("div", a.body));
-    container.appendChild(document.createElement("hr"));
-  }
-}
+//   for (const a of announcements) {
+//     container.appendChild(el("div", a.title));
+//     container.appendChild(el("div", a.body));
+//     container.appendChild(document.createElement("hr"));
+//   }
+// }
 
 function renderAll() {
   renderSections();
-  renderSchedule();
+  renderCurEnrollments();
 }
 
 renderAll();
