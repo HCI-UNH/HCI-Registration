@@ -1,6 +1,8 @@
   body { 
     font-family: sans-serif; 
-    margin: 16px; 
+    margin: 0;
+    padding: 0;
+    background-color: #e6ebfc;
   }
 
   h1 { 
@@ -26,8 +28,42 @@
     margin: 4px 0; 
   }
 
+  .sidebar-icons {
+    list-style: none;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+  }
+
+  .sidebar-icon {
+    height: 70px;
+    width: 70px;
+  }
+
+  .sidebar-icon-label  {
+    padding-bottom: 10px;
+  }
+
+
   hr { 
     margin: 8px 0; 
+  }
+
+  #sidebar {
+    padding-top: 0;
+    width: 10%;
+    height: 100%;
+    position: fixed;
+    background-color: #1a3692;
+  }
+
+  #title-area {
+    margin-left: 250px;
+  }
+
+  #main-area {
+    margin-left: 250px;
   }
 
   #error { 
