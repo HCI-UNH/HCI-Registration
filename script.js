@@ -157,44 +157,11 @@ async function renderCurEnrollments() {
   }
 }
 
-function renderSearchResults(courses) {
-  const container = document.getElementById("results-course-list");
-  // Clear previous results
-  container.replaceChildren();
-
-  if (!courses || course.length === 0) {
-    container.appendChild(el("p", "No courses found."));
-    return;
-  }
-
-  for (const s of courses) {
-    const row = el("div");
-    row.className = "row";
-
-    //Display course information
-    row.appendChild(el(
-      "span",
-      `${s.department} ${s.course_num}.${s.section_num} - ${s.title} - ${s.instructor}`
-    ));
-
-    if (s.you_enrolled) {
-      const btn = el("button", "Drop");
-      btn.onclick = () => dropSection(s.id);
-      row.appendChild(btn);
-    } else {
-      const btn = el("button", "Register");
-      btn.onclick = () => registerSection(s.id);
-      row.appendChild(btn);
-    }
-
-    container.appendChild(row);
-  }
-}
-
 async function getWishLists() {
   const wishlists = await apiGet("/wishlists");
   return wishlists
 }
+
 // get wish list from API and render it
 async function loadWishLists() {
   const select = document.getElementById("wishlist-search-select");
@@ -240,27 +207,92 @@ function renderSearchResults(courses) {
     return;
   }
 
-  for (const course of courses) {
+  courses.forEach((course, index) => {
     const row = el("div");
     row.className = "row";
 
-    row.appendChild(el(
-      "span",
-      `${course.department} ${course.course_num}.${course.section_num} - ${course.title} - ${course.instructor}`
-    ));
+    const checkbox = el("input");
+    checkbox.type = "checkbox";
+    checkbox.id = `result-${index}`;
+    checkbox.dataset.id = course.id;
+    checkbox.dataset.enrolled = course.you_enrolled;
+    checkbox.addEventListener("change", updateRegisterButtonState);
 
-    if (course.you_enrolled) {
-      const btn = el("button", "Drop");
-      btn.onclick = () => dropSection(course.id);
-      row.appendChild(btn);
-    } else {
-      const btn = el("button", "Register");
-      btn.onclick = () => registerSection(course.id);
-      row.appendChild(btn);
+    const label = el("label");
+    label.htmlFor = `result-${index}`;
+    label.textContent = `${course.department} ${course.course_num}.${course.section_num} - ${course.title} - Taught by: ${course.instructor} - ${course.meets} - ${course.seats_open}/${course.capacity} seats open`;
+
+    row.appendChild(checkbox);
+    row.appendChild(label);
+    container.appendChild(row);
+  });
+}
+
+function updateRegisterButtonState() {
+  const checkboxes = document.querySelectorAll("#results-course-list input[type='checkbox']");
+  const selected = Array.from(checkboxes).filter(cb => cb.checked);
+  const registerBtn = document.getElementById("register-button");
+
+  if (!registerBtn) return;
+
+  if (selected.length === 0) {
+    registerBtn.textContent = "Register (0 selected)";
+    registerBtn.disabled = false;
+    registerBtn.style.backgroundColor = "";
+    return;
+  }
+
+  const allEnrolled = selected.every(cb => cb.dataset.enrolled === "true");
+  const noneEnorlled = selected.every(cb => cb.dataset.enrolled === "false");
+
+  if (!allEnrolled && !noneEnorlled) {
+    registerBtn.textContent = "Cannot mix Reg/Drop";
+    registerBtn.disabled = true;
+    registerBtn.style.backgroundColor = "grey";
+  } else if (allEnrolled) {
+    registerBtn.textContent = `Drop (${selected.length} selected)`;
+    registerBtn.disabled = false;
+    registerBtn.style.backgroundColor = "red";
+    registerBtn.style.color = "white";
+  } else {
+    registerBtn.textContent = `Register (${selected.length} selected)`;
+    registerBtn.disabled = false;
+    registerBtn.style.backgroundColor = "green";
+    registerBtn.style.color = "white";
+  }
+}
+
+const mainRegisterBtn = document.getElementById("register-button");
+if (mainRegisterBtn) {
+  mainRegisterBtn.addEventListener("click", async() => {
+    const checkboxes = document.querySelectorAll("#results-course-list input[type='checkbox']");
+    const selected = Array.from(checkboxes).filter(cb => cb.checked);
+
+    if (selected.length === 0) {
+      showError("No courses selected.");
+      return;
     }
 
-    container.appendChild(row);
-  }
+    const ids = selected.map(cb => Number(cb.dataset.id));
+    const allEnrolled = selected.every(cb => cb.dataset.enrolled === "true");
+
+    let success = false;
+    if (allEnrolled) {
+      // Drop req
+      success = await apiPost("/drop", ids);
+    } else {
+      // Reg req
+      success = await apiPost("/register", ids);
+    }
+
+    if (success) {
+      clearError();
+      renderAll();
+      currentCourses = await apiGet("/sections");
+      renderSearchResults();
+      updateRegisterButtonState();
+    }
+  })
 }
 // async function renderAnnouncements() {
 //   const container = document.getElementById("announcements");
