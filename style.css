@@ -3,6 +3,8 @@
     margin: 0;
     padding: 0;
     background-color: #e6ebfc;
+    overflow-x: hidden;
+    box-sizing: border-box;
   }
 
   h1 { 
@@ -13,8 +15,13 @@
     font-size: 18px; 
   }
 
-  .layout { 
-    display: flex; gap: 16px; 
+/*https://www.w3schools.com/css/css_border.asp*/
+/*borders and styling around areas*/
+  section {
+    border: thin solid gray;
+    border-radius: 10px;
+    padding: 1%;
+    margin: 1%;
   }
 
   .col { 
@@ -52,18 +59,42 @@
 
   #sidebar {
     padding-top: 0;
-    width: 10%;
-    height: 100%;
+    width: 160px;
+    height: 100vh;
     position: fixed;
     background-color: #1a3692;
   }
 
-  #title-area {
-    margin-left: 250px;
+  #search-area {
+    width: 100%;
+    height: 100%;
+    grid-row: 1 / span 2;
   }
 
+  #results-area {
+    width: 100%;
+    height: 100%;
+  }
+
+  #enrollments-area {
+    width: 100%;
+    height: 100%;
+  }
+
+
+  #title-area {
+    margin-left: 180px;
+  }
+
+  /*Grid container: https://www.w3schools.com/css/css_grid_container.asps*/
   #main-area {
-    margin-left: 250px;
+    margin-left: 180px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    height: 800px;
+    width: calc(100% - 200px);
+    box-sizing: border-box;
   }
 
   #error { 
