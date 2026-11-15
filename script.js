@@ -46,14 +46,21 @@ async function searchBtnOnClick(){
   console.log("Search button was clicked")
 
 
-  const titleInput = document.getElementById("title-search-input").value.trim().toLowerCase();
+  const titleInput = document.getElementById("title-search-input").value.replace(/\s+/g, "").toLowerCase();
   const crnInput = document.getElementById("crn-search-input").value.trim();
 
   const filteredCourses = currentCourses.filter((course) => {
+    const courseCodeString = `${course.department}${course.course_num}.${course.section_num}`.toLowerCase();
+    const deptAndNum = `${course.department}${course.course_num}`.toLowerCase();
+    const deptOnly = course.department.toLowerCase();
+    const numOnly = String(course.course_num);
+
     const matchesTitle = 
       !titleInput || 
-      course.title.toLowerCase().includes(titleInput) ||
-      course.department.toLowerCase().includes(titleInput);
+      courseCodeString.includes(titleInput) ||
+      deptAndNum.includes(titleInput) ||
+      deptOnly.includes(titleInput) ||
+      numOnly.includes(titleInput);
     
     const matchesCRN = 
       !crnInput ||
