@@ -24,15 +24,6 @@
     margin: 1%;
   }
 
-/*https://www.w3schools.com/css/css_border.asp*/
-/*borders and styling around areas*/
-  section {
-    border: thin solid gray;
-    border-radius: 10px;
-    padding: 1%;
-    margin: 1%;
-  }
-
   .col { 
     width: 50%; padding: 8px;
   }
