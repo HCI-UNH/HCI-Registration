@@ -2,26 +2,27 @@
     font-family: sans-serif; 
     margin: 0;
     padding: 0;
-    background-color: #e6ebfc;
+    background-color: #99bff0;
     overflow-x: hidden;
     box-sizing: border-box;
   }
 
   h1 { 
-    font-size: 24px; 
+    font-size: 40px; 
   }
 
   h2 { 
-    font-size: 18px; 
+    font-size: 30px; 
   }
 
 /*https://www.w3schools.com/css/css_border.asp*/
 /*borders and styling around areas*/
   section {
-    border: thin solid gray;
+    border: solid rgb(0, 0, 0);
     border-radius: 10px;
-    padding: 1%;
+    padding: 2%;
     margin: 1%;
+    background-color: #e6ebfc;
   }
 
   .col { 
@@ -32,7 +33,7 @@
   .row {
     display: flex; 
     align-items: center; 
-    gap: 8px;
+    gap: 16px;
     margin: 4px 0;
     
     /*borders and styling around search results*/
@@ -72,9 +73,10 @@
     margin-bottom: 25%;
 }
 
-
-  hr { 
-    margin: 8px 0;
+  header h1 {
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 
   #sidebar {
@@ -90,6 +92,50 @@
     height: 100%;
     grid-row: 1 / span 2;
   }
+
+  /* #title-search-label{
+    font-size: 25px;
+  } */
+
+  .search_input{
+    font-size: 20px;
+    padding-bottom: 40px;
+  }
+
+  .search_field {
+    height: 30px;
+    width: 180px;
+    border-color: black;
+  }
+
+  .creative-button{
+    background-color: white;
+    border: medium solid black;
+  }
+
+  .creative-button:hover{
+    background-color: #99bff0;
+  }
+
+  #register-button{
+    height: 40px;
+    width: 100px;
+  }
+
+  #search-button{
+    height: 40px;
+    width: 80px;
+  }
+
+  #title-search-input{
+    margin-left: 10px;
+  }
+
+  #wishlist-search-select{
+    height: 30px;
+    width: 180px;
+  }
+  
 
   #results-area {
     width: 100%;
@@ -111,9 +157,9 @@
     margin-left: 180px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30px;
+    gap: 40px;
     height: 800px;
-    width: calc(100% - 200px);
+    width: 1200px;
     box-sizing: border-box;
   }
 

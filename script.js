@@ -305,17 +305,17 @@ function updateRegisterButtonState() {
   if (!allEnrolled && !noneEnorlled) {
     registerBtn.textContent = "Cannot mix Reg/Drop";
     registerBtn.disabled = true;
-    registerBtn.style.backgroundColor = "grey";
+    registerBtn.style.backgroundColor = "black";
   } else if (allEnrolled) {
     registerBtn.textContent = `Drop (${selected.length} selected)`;
     registerBtn.disabled = false;
-    registerBtn.style.backgroundColor = "red";
-    registerBtn.style.color = "white";
+    registerBtn.style.backgroundColor = "#ef93a4";
+    registerBtn.style.color = "black";
   } else {
     registerBtn.textContent = `Register (${selected.length} selected)`;
     registerBtn.disabled = false;
-    registerBtn.style.backgroundColor = "green";
-    registerBtn.style.color = "white";
+    registerBtn.style.backgroundColor = "#8cf6bc";
+    registerBtn.style.color = "black";
   }
 }
 
