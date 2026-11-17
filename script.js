@@ -45,9 +45,29 @@ async function searchBtnOnClick(){
   //debug
   console.log("Search button was clicked")
 
-
+  //error dialog popup
+  const errorPop = document.getElementById("error-dialog");
+  const errorTesxt = document.getElementById("error-message");
   const titleInput = document.getElementById("title-search-input").value.replace(/\s+/g, "").toLowerCase();
   const crnInput = document.getElementById("crn-search-input").value.trim();
+
+  //entered into both input boxes
+  if(titleInput != "" && crnInput != ""){
+    
+    const closeError = document.getElementById("close-error-dialog")
+    errorTesxt.textContent = ("You have entered a Course Title and CRN --- Are you Sure?");
+    
+    errorPop.showModal();
+
+
+    closeError.onclick = async () => {
+      errorPop.close()
+
+    }
+    
+
+  }
+
 
   const filteredCourses = currentCourses.filter((course) => {
     const courseCodeString = `${course.department}${course.course_num}.${course.section_num}`.toLowerCase();
@@ -70,32 +90,7 @@ async function searchBtnOnClick(){
   });
 
   renderSearchResults(filteredCourses);
-  // //container to fill with list of elements
-  // const container = document.getElementById("resultsFromSearch");
-  // //api call to get sections currently available
-  // const sections = await apiGet("/sections");
-
-  // //idk what this does its in the starter code tho
-  // container.replaceChildren();
-
-  // //for each section in the list of dictionaries we create a div and a span element
   
-  // for (const s of sections) {
-  //   const row = el("div");
-  //   row.className = "row";
-  //   //display each section based on there attributes
-  //   row.appendChild(el("span",
-  //     `${s.department} - ${s.title} - ${s.instructor} - ${s.meets} - ${s.seats_open}/${s.capacity} seats open`))
-  //   if (s.you_enrolled) {
-  //     const btn = el("button", "Drop");
-  //     btn.onclick = () => dropSection(s.id);
-  //     row.appendChild(btn);
-  //   } else {
-  //     const btn = el("button", "Register");
-  //     btn.onclick = () => registerSection(s.id);
-  //     row.appendChild(btn);
-  //   }
-  //   container.appendChild(row);
 
 }
 
