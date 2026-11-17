@@ -97,6 +97,10 @@
     font-size: 25px;
   } */
 
+  .destructive-button{
+    background-color: #ef93a4;
+  }
+
   .search_input{
     font-size: 20px;
     padding-bottom: 40px;
