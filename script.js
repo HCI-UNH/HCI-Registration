@@ -172,6 +172,7 @@ async function renderCurEnrollments() {
   }
   for (const s of enrolled) {
     const row = el("div")
+    row.className = "enrollment-item";
 
     row.style.display = "flex";
     row.style.gap = "10px";
