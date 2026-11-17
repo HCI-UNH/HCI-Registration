@@ -1,0 +1,177 @@
+  body { 
+    font-family: sans-serif; 
+    margin: 0;
+    padding: 0;
+    background-color: #99bff0;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  h1 { 
+    font-size: 40px; 
+  }
+
+  h2 { 
+    font-size: 30px; 
+  }
+
+/*https://www.w3schools.com/css/css_border.asp*/
+/*borders and styling around areas*/
+  section {
+    border: solid rgb(0, 0, 0);
+    border-radius: 10px;
+    padding: 2%;
+    margin: 1%;
+    background-color: #e6ebfc;
+  }
+
+  .col { 
+    width: 50%; padding: 8px;
+  }
+
+/*TODO: choose longterm color choice for .row and .row:hover*/
+  .row {
+    display: flex; 
+    align-items: center; 
+    gap: 16px;
+    margin: 4px 0;
+    
+    /*borders and styling around search results*/
+    border: medium solid gray;
+    border-radius: 10px;
+    padding: 1%;
+    margin: 1%;
+  }
+
+/*make result dynamically shift on hover*/
+/*https://www.w3schools.com/cssref/sel_hover.php*/
+/*https://www.geeksforgeeks.org/css/how-to-change-the-cursor-on-hovering-in-css/*/
+.row:hover {
+    cursor: pointer;
+    /*TODO: not sure how to make the actual text itself inherit the hover pointer*/
+    background-color: gray;
+}
+
+  .sidebar-icons {
+    list-style: none;
+    padding: 10px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+  }
+
+  .sidebar-icon {
+    height: 70px;
+    width: 70px;
+  }
+
+  .sidebar-icon-label  {
+    padding-bottom: 10px;
+  }
+
+.sidebar-icon-group {
+    margin-bottom: 25%;
+}
+
+  header h1 {
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  #sidebar {
+    padding-top: 0;
+    width: 160px;
+    height: 100vh;
+    position: fixed;
+    background-color: #1a3692;
+  }
+
+  #search-area {
+    width: 100%;
+    height: 100%;
+    grid-row: 1 / span 2;
+  }
+
+  #results-area {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+  #enrollments-area {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* #title-search-label{
+    font-size: 25px;
+  } */
+
+  .destructive-button{
+    background-color: #ef93a4;
+    border: medium solid black;
+  }
+
+  .destructive-button:hover{
+    background-color: #fa3a3a;
+  }
+
+  .search_input{
+    font-size: 20px;
+    padding-bottom: 40px;
+  }
+
+  .search_field {
+    height: 30px;
+    width: 180px;
+    border-color: black;
+  }
+
+  .creative-button{
+    background-color: white;
+    border: medium solid black;
+  }
+
+  .creative-button:hover{
+    background-color: #99bff0;
+  }
+
+  #register-button{
+    height: 40px;
+    width: 100px;
+  }
+
+  #search-button{
+    height: 40px;
+    width: 80px;
+  }
+
+  #title-search-input{
+    margin-left: 10px;
+  }
+
+  #wishlist-search-select{
+    height: 30px;
+    width: 180px;
+  }
+
+
+  #title-area {
+    margin-left: 180px;
+  }
+
+  /*Grid container: https://www.w3schools.com/css/css_grid_container.asps*/
+  #main-area {
+    margin-left: 180px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    height: 800px;
+    width: 1200px;
+    box-sizing: border-box;
+  }
+
+  #error { 
+    color: #b00020; 
+  }
