@@ -45,7 +45,6 @@ async function searchBtnOnClick(){
   //debug
   console.log("Search button was clicked")
 
-
   const titleInput = document.getElementById("title-search-input").value.replace(/\s+/g, "").toLowerCase();
   const crnInput = document.getElementById("crn-search-input").value.trim();
 
@@ -68,38 +67,8 @@ async function searchBtnOnClick(){
 
     return matchesTitle && matchesCRN;
   });
-
   renderSearchResults(filteredCourses);
-  // //container to fill with list of elements
-  // const container = document.getElementById("resultsFromSearch");
-  // //api call to get sections currently available
-  // const sections = await apiGet("/sections");
-
-  // //idk what this does its in the starter code tho
-  // container.replaceChildren();
-
-  // //for each section in the list of dictionaries we create a div and a span element
-  
-  // for (const s of sections) {
-  //   const row = el("div");
-  //   row.className = "row";
-  //   //display each section based on there attributes
-  //   row.appendChild(el("span",
-  //     `${s.department} - ${s.title} - ${s.instructor} - ${s.meets} - ${s.seats_open}/${s.capacity} seats open`))
-  //   if (s.you_enrolled) {
-  //     const btn = el("button", "Drop");
-  //     btn.onclick = () => dropSection(s.id);
-  //     row.appendChild(btn);
-  //   } else {
-  //     const btn = el("button", "Register");
-  //     btn.onclick = () => registerSection(s.id);
-  //     row.appendChild(btn);
-  //   }
-  //   container.appendChild(row);
-
 }
-
-
 
 
 function showError(msg) { document.getElementById("error").textContent = msg; }
@@ -202,16 +171,10 @@ async function renderCurEnrollments() {
 
           dropDialog.close();
 
-
         }
-
         cancelDrop.onclick = async () => {
           dropDialog.close();
         }
-
-
-
-
     }
 
     row.appendChild(theDropButton)
@@ -249,14 +212,12 @@ async function loadWishLists() {
     const wishlistID = event.target.value;
 
     if (wishlistID === "default") {
-      currentCourses = await apiGet("/sections");
-      return;
+      currentCourses = "";
     } else {
       currentCourses = await apiGet(`/wishlist/${wishlistID}`);
     }
 
     console.log(currentCourses)
-
     renderSearchResults(currentCourses);
   });
 }
@@ -265,6 +226,11 @@ function renderSearchResults(courses) {
   const container = document.getElementById("results-course-list");
 
   container.replaceChildren();
+  clearError();
+  const titleInputEl = document.getElementById("title-search-input");
+  const crnInputEl = document.getElementById("crn-search-input");
+  titleInputEl.value = "";
+  crnInputEl .value = "";
 
   if(!courses || courses.length === 0) {
     container.appendChild(el("p", "No courses found."));
@@ -374,6 +340,7 @@ function renderAll() {
  // renderSections();
   renderCurEnrollments();
   loadWishLists();
+  clearError();
 }
 
 renderAll();
