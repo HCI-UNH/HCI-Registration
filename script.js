@@ -45,8 +45,29 @@ async function searchBtnOnClick(){
   //debug
   console.log("Search button was clicked")
 
+  //error dialog popup
+  const errorPop = document.getElementById("error-dialog");
+  const errorTesxt = document.getElementById("error-message");
   const titleInput = document.getElementById("title-search-input").value.replace(/\s+/g, "").toLowerCase();
   const crnInput = document.getElementById("crn-search-input").value.trim();
+
+  //entered into both input boxes
+  if(titleInput != "" && crnInput != ""){
+    
+    const closeError = document.getElementById("close-error-dialog")
+    errorTesxt.textContent = ("You have entered a Course Title and CRN --- Are you Sure?");
+    
+    errorPop.showModal();
+
+
+    closeError.onclick = async () => {
+      errorPop.close()
+
+    }
+    
+
+  }
+
 
   const filteredCourses = currentCourses.filter((course) => {
     const courseCodeString = `${course.department}${course.course_num}.${course.section_num}`.toLowerCase();
@@ -68,6 +89,18 @@ async function searchBtnOnClick(){
     return matchesTitle && matchesCRN;
   });
   renderSearchResults(filteredCourses);
+}
+
+const theRegisterIcon = document.getElementById("register-icon");
+theRegisterIcon.addEventListener("click", logoOnClick);
+
+async function logoOnClick(){
+    console.log("Clicked the logo");
+    renderAll();
+
+    const container = document.getElementById("results-course-list");
+
+    container.replaceChildren();
 }
 
 
@@ -136,6 +169,8 @@ async function renderCurEnrollments() {
 
     row.appendChild(el("div", `${s.course.department} ${s.course.course_num}.${s.course.section_num} - ${s.course.title} - ${s.course.instructor} - ( ${s.course.schedule.days}, ${Math.floor(s.course.schedule.start_hour/100)}:${String(s.course.schedule.start_hour%100).padStart(2, '0')} - ${Math.floor(s.course.schedule.end_hour/100)}:${String(s.course.schedule.end_hour%100).padStart(2, '0')} - ${s.course.schedule.building}, ${s.course.schedule.room_num} ) - ${s.course.seats_open}/${s.course.capacity} seats open`));
     const theDropButton = el("button", "Drop")
+
+    theDropButton.classList.add("destructive-button")
   
 
     //Create event listeners for each drop buttons
