@@ -88,10 +88,7 @@ async function searchBtnOnClick(){
 
     return matchesTitle && matchesCRN;
   });
-
   renderSearchResults(filteredCourses);
-  
-
 }
 
 const theRegisterIcon = document.getElementById("register-icon");
@@ -104,9 +101,8 @@ async function logoOnClick(){
     const container = document.getElementById("results-course-list");
 
     container.replaceChildren();
-
-
 }
+
 
 function showError(msg) { document.getElementById("error").textContent = msg; }
 function clearError() { document.getElementById("error").textContent = ""; }
@@ -210,16 +206,10 @@ async function renderCurEnrollments() {
 
           dropDialog.close();
 
-
         }
-
         cancelDrop.onclick = async () => {
           dropDialog.close();
         }
-
-
-
-
     }
 
     row.appendChild(theDropButton)
@@ -257,14 +247,12 @@ async function loadWishLists() {
     const wishlistID = event.target.value;
 
     if (wishlistID === "default") {
-      currentCourses = await apiGet("/sections");
-      return;
+      currentCourses = "";
     } else {
       currentCourses = await apiGet(`/wishlist/${wishlistID}`);
     }
 
     console.log(currentCourses)
-
     renderSearchResults(currentCourses);
   });
 }
@@ -273,6 +261,11 @@ function renderSearchResults(courses) {
   const container = document.getElementById("results-course-list");
 
   container.replaceChildren();
+  clearError();
+  const titleInputEl = document.getElementById("title-search-input");
+  const crnInputEl = document.getElementById("crn-search-input");
+  titleInputEl.value = "";
+  crnInputEl .value = "";
 
   if(!courses || courses.length === 0) {
     container.appendChild(el("p", "No courses found."));
@@ -382,6 +375,7 @@ function renderAll() {
  // renderSections();
   renderCurEnrollments();
   loadWishLists();
+  clearError();
 }
 
 renderAll();
