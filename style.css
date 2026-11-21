@@ -170,7 +170,8 @@
 
   .search_input{
     display: flex;
-    gap: 10px;
+    gap: 20px;
+    justify-content: center;
     align-items: center;
     border: medium solid black;
     padding: 10px;
@@ -217,7 +218,7 @@
   }
 
   #title-search-input{
-    margin-left: 10px;
+    margin-left: 70px;
   }
 
   #wishlist-search-select{
