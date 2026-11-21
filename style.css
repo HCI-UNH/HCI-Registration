@@ -53,6 +53,14 @@
     margin: 1%;
   }
 
+.enrollment-item {
+    /*borders and styling around search results*/
+    border: medium solid gray;
+    border-radius: 10px;
+    padding: 1%;
+    margin: 1%;
+}
+
 /*make result dynamically shift on hover*/
 /*https://www.w3schools.com/cssref/sel_hover.php*/
 /*https://www.geeksforgeeks.org/css/how-to-change-the-cursor-on-hovering-in-css/*/
