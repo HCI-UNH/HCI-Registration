@@ -13,6 +13,16 @@
 
   h2 { 
     font-size: 30px; 
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  h3 {
+    font-size: 20px; 
+    margin: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
   }
 
 /*https://www.w3schools.com/css/css_border.asp*/
@@ -73,6 +83,37 @@
     margin-bottom: 25%;
 }
 
+/*https://www.w3schools.com/css/css_tooltip.asp*/
+.tooltipWord {
+  position: relative;
+  display: inline-block;
+  border-bottom: 3px dotted black;
+  cursor: pointer;
+}
+
+.tooltipText {
+  visibility: hidden;
+  width: 200px;
+  bottom: 100%;
+  left: 60%;
+  margin-left: -100px;
+  background-color: #1a3692;
+  color: rgb(255, 255, 255);
+  font-size: medium;
+  text-align: center;
+  padding: 6px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.tooltipWord:hover .tooltipText {
+  visibility: visible;
+  opacity: 1;
+}
+
   header h1 {
     margin: 0;
     padding-top: 20px;
@@ -118,14 +159,25 @@
   }
 
   .search_input{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border: medium solid black;
+    padding: 10px;
+    border-radius: 10px;
+    height: 50px;
     font-size: 20px;
-    padding-bottom: 40px;
+    background-color: rgb(248, 238, 203);
   }
 
   .search_field {
     height: 30px;
     width: 180px;
     border-color: black;
+  }
+
+  .or{
+    text-align: center;
   }
 
   .creative-button{
@@ -143,8 +195,15 @@
   }
 
   #search-button{
+    align-self: center;
     height: 40px;
     width: 80px;
+    font-size: large;
+    background-color: rgb(166, 238, 198);
+  }
+
+  #search-button:hover{
+    background-color: rgb(45, 234, 127);
   }
 
   #title-search-input{

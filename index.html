@@ -79,29 +79,38 @@
                 <div class="search_input" id="title-search">
                     <label id="title-search-label" for="title-search-input">Enter a Course Title:</label>
                     <input class="search_field" id="title-search-input" type="search" placeholder="Ex. Math425.01">
+                    <button class="creative-button" id="search-button" type="button">Search</button>
                 </div>
+
+                <h3 class="or">Or</h3>
                 
                 <!--search by crn-->
                 <div class="search_input" id="crn-search">
-                    <label id="crn-search-label" for="crn-search-input">Enter a Course Registration Number (CRN):</label>
+                    <label id="crn-search-label" for="crn-search-input">Enter a <div class="tooltipWord">Course Registration Number
+                        <span class="tooltipText">Unique five-digit number associated with course</span>
+                    </div>:  </label>
                     <input class="search_field" id="crn-search-input" type="search" placeholder="Ex. 12345">
+                    <button class="creative-button" id="search-button" type="button">Search</button>
                 </div>
+
+                <h3 class="or">Or</h3>
                 
                 <!--search by wishlist-->
                 <div class="search_input" id="wishlist-search">
-                    <label id="wishlist-search-label" for="wishlist-search-input">Select a Course Wishlist:</label>
+                    <label id="wishlist-search-label" for="wishlist-search-input">Select a Course <div class="tooltipWord">Wishlist
+                        <span class="tooltipText">Pre-selected set of courses from Planning Page</span>
+                    </div>: </label>
                     <!-- https://www.geeksforgeeks.org/html/html-dropdown/ -->
                     <select id="wishlist-search-select">
                         <!--TODO: Options should be populated by JavaScript based on what is in the API-->
                         <option value="default">No Wishlist Selected</option>
                         <!-- Add more options as needed -->
                     </select>
+                    <button class="creative-button" id="search-button" type="button">Search</button>
                 </div>
                 
                 <!--complete search (button)-->
-                <!-- https://www.w3schools.com/tags/tag_button.asp -->
-                <button class="creative-button" id="search-button" type="button">Search</button>
-                
+                <!-- https://www.w3schools.com/tags/tag_button.asp -->                
                 
             </section>
             
