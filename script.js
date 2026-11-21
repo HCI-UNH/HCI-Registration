@@ -36,9 +36,10 @@ async function apiPost(path, body) {
 }
 
 //Create event listeners for search button
-const searchBtn = document.getElementById("search-button");
-searchBtn.addEventListener("click", searchBtnOnClick)
-//searchBtn.addEventListener("hover", searchBtnOnHover)
+const titleSearchBtn = document.getElementById("title-search-button");
+const crnSearchBtn = document.getElementById("crn-search-button");
+crnSearchBtn.addEventListener("click", searchBtnOnClick)
+titleSearchBtn.addEventListener("click", searchBtnOnClick)
 
 //Search button onclick
 async function searchBtnOnClick(){
@@ -55,7 +56,7 @@ async function searchBtnOnClick(){
   if(titleInput != "" && crnInput != ""){
     
     const closeError = document.getElementById("close-error-dialog")
-    errorTesxt.textContent = ("You have entered a Course Title and CRN --- Are you Sure?");
+    errorTesxt.textContent = ("You have entered a Course Title and CRN --- Please only enter one");
     
     errorPop.showModal();
 

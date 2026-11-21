@@ -79,7 +79,7 @@
                 <div class="search_input" id="title-search">
                     <label id="title-search-label" for="title-search-input">Enter a Course Title:</label>
                     <input class="search_field" id="title-search-input" type="search" placeholder="Ex. Math425.01">
-                    <button class="creative-button" id="search-button" type="button">Search</button>
+                    <button class="search-button creative-button" id="title-search-button" type="button">Search</button>
                 </div>
 
                 <h3 class="or">Or</h3>
@@ -89,8 +89,8 @@
                     <label id="crn-search-label" for="crn-search-input">Enter a <div class="tooltipWord">Course Registration Number
                         <span class="tooltipText">Unique five-digit number associated with course</span>
                     </div>:  </label>
-                    <input class="search_field" id="crn-search-input" type="search" placeholder="Ex. 12345">
-                    <button class="creative-button" id="search-button" type="button">Search</button>
+                    <input class="search_field" id="crn-search-input" type="search" placeholder="Ex. 12345" maxlength="5">
+                    <button class="search-button creative-button" id="crn-search-button" type="button">Search</button>
                 </div>
 
                 <h3 class="or">Or</h3>
@@ -98,7 +98,7 @@
                 <!--search by wishlist-->
                 <div class="search_input" id="wishlist-search">
                     <label id="wishlist-search-label" for="wishlist-search-input">Select a Course <div class="tooltipWord">Wishlist
-                        <span class="tooltipText">Pre-selected set of courses from Planning Page</span>
+                        <span class="tooltipText">Saved set of courses from Planning Page</span>
                     </div>: </label>
                     <!-- https://www.geeksforgeeks.org/html/html-dropdown/ -->
                     <select id="wishlist-search-select">
@@ -106,12 +106,8 @@
                         <option value="default">No Wishlist Selected</option>
                         <!-- Add more options as needed -->
                     </select>
-                    <button class="creative-button" id="search-button" type="button">Search</button>
                 </div>
-                
-                <!--complete search (button)-->
-                <!-- https://www.w3schools.com/tags/tag_button.asp -->                
-                
+
             </section>
             
             <!--results area-->
@@ -137,9 +133,7 @@
                 <!--enrollments list-->
                 <div class="course-list" id="enrollments-course-list">
                     <!--TODO: inputs and labels should be populated by JavaScript based on what is returned from the search-->
-<!--                    <label class="course-item" for="enrollment1">TODO: COURSE INFO -  JavaScript will take over this later</label>-->
                     <!-- https://www.w3schools.com/tags/att_input_type_button.asp -->
-<!--                    <input class="destructive-button" id="enrollment1" type="button" value="Drop">-->
                     <p id = "cur-enrolls">No enrollments yet</p>
                     <!--TODO: the above ^^ will need to be removed longrun becuase JavaScript will takeover-->
                 </div>
